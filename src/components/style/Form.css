@@ -1,0 +1,49 @@
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form_sign_in{
+    margin-top: 300px;
+    width: 60%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 3px solid #3AB0FF;
+    border-radius: 10px;
+}
+
+.text{
+    font-size: 24px;
+    margin-left: 20px;
+    color: #F87474;
+}
+
+.inputs{
+    width: 60%;
+    font-size: 20px;
+    border: 0;
+    border-bottom: 2px solid #FFB562;
+    background-color: transparent;
+}
+.inputs:focus{
+    border: 0;
+    border-bottom: 2px solid #F87474;
+}
+
+.but_sub{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    width: 220px;
+    height: 45px;
+    align-self: center;
+    background-color: #F87474;
+    border: 0;
+    border-radius: 5px;
+    color: #F9F2ED;
+    cursor: pointer;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
