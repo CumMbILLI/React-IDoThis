@@ -1,19 +1,13 @@
-import {  BrowserRouter,Routes, Route, Link } from 'react-router-dom';
-
-import {FormSignIn} from './components/FormSignIn/FormSignIn'
-import {FormSignUp} from './components/FormSignUp/FormSignUp'
-
-import './App.css';
-
+import React from "react";
+import "./App.css";
+import Header from "./components/Header/Header";
+import axios from "axios";
 
 function App() {
   return (
-       <div className="App">
-          <Routes>
-            <Route path='/sign-in' element={<FormSignIn/>}/>  
-            <Route path='/sign-up' element={<FormSignUp/>}/>  
-          </Routes>  
-        </div>
+    <div className="App">
+      <Header />
+    </div>
   );
 }
 

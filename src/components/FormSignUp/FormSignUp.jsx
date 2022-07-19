@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "../style/Form.css";
 import TextField from "../TextField";
+import { Link } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   userName: Yup.string()
@@ -25,10 +26,12 @@ const ARR_FIELD = [
   {
     name: "userName",
     title: "User Name",
+    type: "text",
   },
   {
     name: "email",
     title: "Email",
+    type: "text",
   },
   {
     name: "password",
@@ -43,6 +46,8 @@ const ARR_FIELD = [
 ];
 
 function FormSignUp() {
+  const [fields, setFields] = useState(ARR_FIELD);
+
   const formik = useFormik({
     initialValues: {
       userName: "",
@@ -50,6 +55,7 @@ function FormSignUp() {
       password: "",
       confirmPassword: "",
     },
+
     onSubmit: (values) => {
       console.log(values);
     },
@@ -60,68 +66,52 @@ function FormSignUp() {
   const { handleSubmit, handleChange, handleBlur, values, errors, touched } =
     formik;
 
+  const ChangeType = (fieldName) => () => {
+    setFields((prev) =>
+      prev.map((field) => {
+        if (field.name === fieldName) {
+          return {
+            ...field,
+            type: field.type === "password" ? "text" : "password",
+          };
+        }
+        return field;
+      })
+    );
+  };
+
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="form_sign_in">
-        {/* <TextField
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          value={values.userName}
-          name="userName"
-          touched={touched.userName}
-          error={errors[userName]}
-          title="User Name"
-        />
+    <form className="form_flex" onSubmit={handleSubmit}>
+      <div className="form">
+        <div className="content_form">
+          <div className="account_but">
+            <h2 className="title_block">Account Sign Up</h2>
+            <Link
+              to="/sign-in"
+              className="but_link"
+            >
+              Sign In
+            </Link>
+          </div>
+          {fields.map(({ name, title, type }) => (
+            <TextField
+              key={name}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              value={values[name]}
+              name={name}
+              touched={touched[name]}
+              error={errors[name]}
+              title={title}
+              type={type}
+              ChangeType={ChangeType}
+            />
+          ))}
 
-        <TextField
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          value={values.email}
-          name="email"
-          touched={touched.email}
-          error={errors.email}
-          title="Email"
-        />
-
-        <TextField
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          value={values.password}
-          name="password"
-          touched={touched.password}
-          error={errors.password}
-          title="Password"
-          type="password"
-        />
-
-        <TextField
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          value={values.confirmPassword}
-          name="confirmPassword"
-          touched={touched.confirmPassword}
-          error={errors.confirmPassword}
-          title="Confirm Password"
-          type="password"
-        /> */}
-
-        {ARR_FIELD.map(({ name, title, type }) => (
-          <TextField
-            key={name}
-            handleBlur={handleBlur}
-            handleChange={handleChange}
-            value={values[name]}
-            name={name}
-            touched={touched[name]}
-            error={errors[name]}
-            title={title}
-            type={type}
-          />
-        ))}
-
-        <button type="submit" className="but_sub">
-          Sign Up
-        </button>
+          <button type="submit" className="but_sub">
+            Sign Up
+          </button>
+        </div>
       </div>
     </form>
   );

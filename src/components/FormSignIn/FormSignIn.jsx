@@ -3,6 +3,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "../style/Form.css";
 import TextField from "../TextField";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const validationSchema = Yup.object().shape({
   userName: Yup.string()
@@ -16,6 +19,12 @@ const validationSchema = Yup.object().shape({
 });
 
 function FormSignIn() {
+  const [typeFieldPas, setTypeFieldPas] = useState('password');
+
+  const ChangeType = () =>() => {
+    setTypeFieldPas(typeFieldPas === 'password'? 'text' : 'password')
+  };
+
   const formik = useFormik({
     initialValues: {
       userName: "",
@@ -28,35 +37,46 @@ function FormSignIn() {
     validateOnBlur: true,
   });
 
-  const { handleSubmit, handleChange, handleBlur, values, errors, touched } = formik;
+  const { handleSubmit, handleChange, handleBlur, values, errors, touched } =
+    formik;
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="form_sign_in">
-        <TextField
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          value={values.userName}
-          name="userName"
-          touched={touched.userName}
-          error={errors.userName}
-          title="User Name"
-        />
+    <form className="form_flex" onSubmit={handleSubmit}>
+      <div className="form">
+        <div className="content_form">
+          <div className="account_but">
+            <h2 className="title_block">Account Sign In</h2>
+            <Link to="/sign-up" className="but_link">
+              Sign Up
+            </Link>
+          </div>
 
-        <TextField
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          value={values.password}
-          name="password"
-          touched={touched.password}
-          error={errors.password}
-          title="Password"
-          type = "password"
-        />
+          <TextField
+            handleBlur={handleBlur}
+            handleChange={handleChange}
+            value={values.userName}
+            name="userName"
+            touched={touched.userName}
+            error={errors.userName}
+            title="User Name"
+          />
 
-        <button type="submit" className="but_sub">
-          Sign In
-        </button>
+          <TextField
+            handleBlur={handleBlur}
+            handleChange={handleChange}
+            value={values.password}
+            name="password"
+            touched={touched.password}
+            error={errors.password}
+            title="Password"
+            type={typeFieldPas}
+            ChangeType={ChangeType}
+          />
+
+          <button type="submit" className="but_sub">
+            Sign In
+          </button>
+        </div>
       </div>
     </form>
   );
