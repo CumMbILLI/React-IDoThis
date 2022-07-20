@@ -1,38 +1,66 @@
-import React from "react";
+import React, {useState} from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "../style/Form.css";
 import TextField from "../TextField";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
+import axiosInstance from "../../utils/axiosInstance";
 
 const validationSchema = Yup.object().shape({
-  userName: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
+  username: Yup.string()
+    .min(3, "Too Short!")
+    .max(15, "Too Long!")
     .required("Required"),
   password: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
+    .min(3, "Too Short!")
+    .max(15, "Too Long!")
     .required("Required"),
 });
 
 function FormSignIn() {
-  const [typeFieldPas, setTypeFieldPas] = useState('password');
+  const navigate = useNavigate();
+  const [typeFieldPas, setTypeFieldPas] = useState("password");
+  const [responseMessage, setResponseMessage] = useState({
+    message: "",
+    status: 0,
+  });
 
-  const ChangeType = () =>() => {
-    setTypeFieldPas(typeFieldPas === 'password'? 'text' : 'password')
+  const onSubmit = async () => {
+    try {
+      const { data, status } = await axiosInstance.post("/auth/login", values);
+      const { token, username } = data;
+
+      if (username) {
+        window.localStorage.setItem("user", username);
+      }
+      if (token) {
+        window.localStorage.setItem("accessToken", token);
+        navigate("/");
+      }
+
+      setResponseMessage({
+        message: data.message,
+        status,
+      });
+    } catch (err) {
+      console.log(err);
+      setResponseMessage({
+        message: err.response.data.message,
+        status: err.response.status,
+      });
+    }
+  };
+
+  const ChangeType = () => () => {
+    setTypeFieldPas(typeFieldPas === "password" ? "text" : "password");
   };
 
   const formik = useFormik({
     initialValues: {
-      userName: "",
+      username: "",
       password: "",
     },
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit,
     validationSchema,
     validateOnBlur: true,
   });
@@ -54,10 +82,10 @@ function FormSignIn() {
           <TextField
             handleBlur={handleBlur}
             handleChange={handleChange}
-            value={values.userName}
-            name="userName"
-            touched={touched.userName}
-            error={errors.userName}
+            value={values.username}
+            name="username"
+            touched={touched.username}
+            error={errors.username}
             title="User Name"
           />
 
@@ -71,8 +99,10 @@ function FormSignIn() {
             title="Password"
             type={typeFieldPas}
             ChangeType={ChangeType}
-          />
-
+          />     
+            <span className={`errorMessage _${responseMessage.status}`}>
+              {responseMessage.message}
+            </span>      
           <button type="submit" className="but_sub">
             Sign In
           </button>

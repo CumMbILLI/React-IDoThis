@@ -30,6 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  letter-spacing: 2px;
   border: 2px solid black;
   border-radius: 5px;
   transition: all 0.2s linear;

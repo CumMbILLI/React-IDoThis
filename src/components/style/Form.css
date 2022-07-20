@@ -19,7 +19,7 @@
 .content_form{
     width: 70%;
     margin: 0 auto;
-    margin-top: 60px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
 }
@@ -77,9 +77,9 @@
 
 .but_sub{
     margin-top: 50px;
-    margin-bottom: 40px;
-    width: 220px;
-    height: 45px;
+    margin-bottom: 30px;
+    width: 200px;
+    height: 35px;
     align-self: center;
     background-color: #000;
     border: 0;
@@ -113,7 +113,6 @@
     top: 5px;
     right: -40px;
     width: 20px;
-    cursor: pointer;
 }
 .error{
     text-align: right;
@@ -125,4 +124,16 @@
 }
 .error_icon:hover .error{
     color: #000;
+}
+.errorMessage{
+    margin-top: 10px;
+    margin-bottom: -25px;
+}
+
+.errorMessage._209{
+    color: red;
+}
+
+.errorMessage._201{
+    color: green;
 }

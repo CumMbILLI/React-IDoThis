@@ -1,12 +1,12 @@
 import React from "react";
 import logo from "../icon/logo.svg";
 import { Routes, Route, Link } from "react-router-dom";
-
 import HomePage from "../HomePage/HomePage";
 import { FormSignIn } from "../FormSignIn/FormSignIn";
 import { FormSignUp } from "../FormSignUp/FormSignUp";
 
 import "./Header.css";
+import LinkLoginReg from "./LinkLoginReg";
 
 const Header = () => {
   return (
@@ -19,12 +19,7 @@ const Header = () => {
             </Link>
           </div>
           <div className="nav">
-            <Link className="link sign-in" to="/sign-in">
-              SIGN IN
-            </Link>
-            <Link className="link sign-up" to="/sign-up">
-              SIGN UP
-            </Link>
+            <LinkLoginReg></LinkLoginReg>
           </div>
         </div>
       </header>

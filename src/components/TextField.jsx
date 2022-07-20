@@ -1,7 +1,7 @@
 import React from "react";
-import eyeShow from "./icon/eyeShow.svg";
-import eyeNoShow from "./icon/eyeNoShow.svg";
-import errorIcon from "./icon/error.svg";
+import eyeShow from "./icon/FormIcon/eyeShow.svg";
+import eyeNoShow from "./icon/FormIcon/eyeNoShow.svg";
+import errorIcon from "./icon/FormIcon/error.svg";
 
 const TextField = ({
   handleBlur,

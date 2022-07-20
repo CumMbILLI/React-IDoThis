@@ -4,19 +4,20 @@ import * as Yup from "yup";
 import "../style/Form.css";
 import TextField from "../TextField";
 import { Link } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
 
 const validationSchema = Yup.object().shape({
-  userName: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
+  username: Yup.string()
+    .min(3, "Too Short!")
+    .max(15, "Too Long!")
     .required("Required"),
   password: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
+    .min(3, "Too Short!")
+    .max(15, "Too Long!")
     .required("Required"),
   confirmPassword: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
+    .min(3, "Too Short!")
+    .max(15, "Too Long!")
     .required("Required")
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
   email: Yup.string().email().required("Required"),
@@ -24,7 +25,7 @@ const validationSchema = Yup.object().shape({
 
 const ARR_FIELD = [
   {
-    name: "userName",
+    name: "username",
     title: "User Name",
     type: "text",
   },
@@ -47,18 +48,38 @@ const ARR_FIELD = [
 
 function FormSignUp() {
   const [fields, setFields] = useState(ARR_FIELD);
+  const [responseMessage, setResponseMessage] = useState({
+    message: "",
+    status: 0,
+  });
+
+  const onSubmit = async (values) => {
+    console.log(1);
+    try {
+      const { data, status } = await axiosInstance.post(
+        "/auth/register",
+        values
+      );
+      setResponseMessage({
+        message: data.message,
+        status: status,
+      });
+    } catch (err) {
+      setResponseMessage({
+        message: err.response.data.message,
+        status: err.response.status,
+      });
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
-      userName: "",
+      username: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
-
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit,
     validationSchema,
     validateOnBlur: true,
   });
@@ -86,10 +107,7 @@ function FormSignUp() {
         <div className="content_form">
           <div className="account_but">
             <h2 className="title_block">Account Sign Up</h2>
-            <Link
-              to="/sign-in"
-              className="but_link"
-            >
+            <Link to="/sign-in" className="but_link">
               Sign In
             </Link>
           </div>
@@ -107,7 +125,11 @@ function FormSignUp() {
               ChangeType={ChangeType}
             />
           ))}
-
+         
+            <span className={`errorMessage _${responseMessage.status}`}>
+              {responseMessage.message}
+            </span>
+         
           <button type="submit" className="but_sub">
             Sign Up
           </button>
