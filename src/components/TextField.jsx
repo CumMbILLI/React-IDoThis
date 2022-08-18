@@ -20,7 +20,7 @@ const TextField = ({
       <div className="input_block">
         <input
           type={type}
-          className="inputs"
+          className={type==='password'? "inputs pas": "inputs"}
           name={name}
           onChange={handleChange}
           onBlur={handleBlur}

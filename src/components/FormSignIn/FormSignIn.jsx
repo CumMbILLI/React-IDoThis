@@ -36,6 +36,7 @@ function FormSignIn() {
       if (token) {
         window.localStorage.setItem("accessToken", token);
         navigate("/");
+        window.location.reload()
       }
 
       setResponseMessage({

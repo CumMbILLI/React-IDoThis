@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './Header.css'
+import "../style/HomePage.css";
 
-const LinkLoginReg = () => {
+const LinkLoginReg = ({ user }) => {
   return (
-    <>
+    <div className= "nav">
       <Link className="link sign-in" to="/sign-in">
         SIGN IN
       </Link>
       <Link className="link sign-up" to="/sign-up">
         SIGN UP
       </Link>
-    </>
+    </div>
   );
 };
 

@@ -1,5 +1,7 @@
 .form_flex{
     display: flex;
+    width: 99vw;
+    height: 100vh;
     align-items: center;
     justify-content: center;
 }
@@ -10,7 +12,6 @@
     margin-bottom: 155px;
     max-width: 850px;
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     border-radius: 30px;
@@ -27,6 +28,7 @@
     text-align: left;
     margin-right: 40px;
     line-height: 25px;
+    font-size: 30px;
 }
 .account_but{
     width: 100%;
@@ -35,6 +37,7 @@
     align-items: center;
     text-transform: uppercase;
     letter-spacing: 2px;
+    margin-bottom: 20px;
 }
 .but_link{
     width: 150px;
@@ -57,6 +60,7 @@
 }
 
 .text{
+    margin: 15px 0px 7px 5px;
     text-transform: uppercase;
     letter-spacing: 1.6px;
     text-align: left;
@@ -64,15 +68,22 @@
     color: #000000;
 }
 
+
 .inputs{
     width: 100%;
-    font-size: 20px;
     border: 1px solid #000;
     background-color: transparent;
+    padding: 5px 40px 5px 10px;
+    font-size: 18px;
+    font-family: "Jost",sans-serif;
 }
 .inputs:focus{
     border: 0;
     border-bottom: 2px solid #F87474;
+}
+.pas{
+    font-size: 22px;
+    font-family: sans-serif;
 }
 
 .but_sub{
@@ -89,7 +100,7 @@
     font-size: 18px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    transition: all .3s linear;
+    transition: all .2s linear;
 }
 .but_sub:hover{
     color: #000;
@@ -102,25 +113,28 @@
 }
 .icon_eye{
     position: absolute;
-    top: 1px;
-    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
     width: 25px;
     height: 25px;
     cursor: pointer;
 }
 .error_icon{
     position: absolute;
-    top: 5px;
+    top: 50%;
+    transform: translateY(-50%);
     right: -40px;
     width: 20px;
 }
 .error{
-    text-align: right;
     color: red;
     margin: 0;
-    margin-bottom: -21px;
     padding: 0;
     text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .error_icon:hover .error{
     color: #000;
