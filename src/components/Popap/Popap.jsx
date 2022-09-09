@@ -13,16 +13,18 @@ const validationSchema = Yup.object().shape({
     .required("Required"),
 });
 
-const Popap = ({ activePopap, setActivePopap, date, getTodos}) => {
-  const [statusMessage, setStatusMessage] = useState(0)
-  const [textMessage, setTextMessage] = useState('')
+const Popap = ({ activePopap, setActivePopap, date, changeTodos }) => {
+  const [statusMessage, setStatusMessage] = useState(0);
+  const [textMessage, setTextMessage] = useState("");
   const [active, setActive] = useState(false);
 
   const popapTime = (status) => {
-    if(status == 200)
-      setTextMessage('Succsesful c;')
-    else 
-      setTextMessage('Error :c')
+    if (status === 200) {
+      setTextMessage("Succsesful c;");
+      setActivePopap(false);
+    } 
+    else
+      setTextMessage("Error :c");
 
     setActive(true);
     setTimeout(() => {
@@ -32,20 +34,25 @@ const Popap = ({ activePopap, setActivePopap, date, getTodos}) => {
 
   const onSubmit = async () => {
     try {
-      const { status } = await axiosInstance.post(`/todo/?date=${format(date, "Y-M-d")}`, values);
-      setStatusMessage(status)
+      const { data, status } = await axiosInstance.post(
+        `/todo/?date=${format(date, "Y-M-d")}`,
+        values
+      );
+      setStatusMessage(status);
       popapTime(status);
-      getTodos()
+      changeTodos(data, status)
     } catch (err) {
-      console.log(err);
       popapTime(err.response.status);
       setStatusMessage(err.response.status);
     }
+    finally{
+      setActivePopap(false)
+    }
   };
 
-  useEffect(()=>{
-    console.log(statusMessage)
-  },[statusMessage])
+  useEffect(() => {
+    console.log(statusMessage);
+  }, [statusMessage]);
 
   const formik = useFormik({
     initialValues: {
@@ -56,7 +63,7 @@ const Popap = ({ activePopap, setActivePopap, date, getTodos}) => {
     validateOnBlur: true,
   });
 
-  const { handleSubmit, handleChange, handleBlur, values} = formik;
+  const { handleSubmit, handleChange, handleBlur, values } = formik;
 
   return (
     <>
@@ -74,6 +81,7 @@ const Popap = ({ activePopap, setActivePopap, date, getTodos}) => {
               className="close_but"
               src={closeIcon}
               onClick={() => setActivePopap(false)}
+              alt=""
             />
             <div className="popap_input">
               <input
@@ -98,7 +106,9 @@ const Popap = ({ activePopap, setActivePopap, date, getTodos}) => {
           </div>
         </div>
       </form>
-      <div className={active? `popap_time _${statusMessage} act`: "popap_time"}>
+      <div
+        className={active ? `popap_time _${statusMessage} act` : "popap_time"}
+      >
         <span className="message">{textMessage}</span>
       </div>
     </>

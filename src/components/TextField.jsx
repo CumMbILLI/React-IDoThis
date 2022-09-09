@@ -27,7 +27,7 @@ const TextField = ({
           value={value}
         />
         {type === "password" && (
-          <img className="icon_eye" src={eyeShow} onClick={ChangeType(name)} />
+          <img className="icon_eye" src={eyeShow} onClick={ChangeType(name)} alt=''/>
         )}
         {(name === "password" || name === "confirmPassword") &&
           type === "text" && (
@@ -35,10 +35,11 @@ const TextField = ({
               className="icon_eye"
               src={eyeNoShow}
               onClick={ChangeType(name)}
-            ></img>
+              alt=''
+            />
           )}
         {touched && error && <p className="error">{error}</p>}
-        {touched && error && <img className="error_icon" src={errorIcon} />}
+        {touched && error && <img className="error_icon" src={errorIcon} alt=''/>}
       </div>
     </>
   );

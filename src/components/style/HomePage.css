@@ -41,10 +41,15 @@
   background: transparent;
   border: 0;
   cursor: pointer;
-  transition: all .05s linear;
 }
-.tabs__btn:hover{
-  border-bottom: 2px solid #000;
+.tabs__all{
+  border-bottom: 1px solid #000;
+}
+.tabs__active{
+  border-bottom:1px solid #000;
+}
+.tabs__complite{
+  border-bottom:1px solid #000;
 }
 
 /* =====================
@@ -86,6 +91,10 @@
   align-items: center;
   font-size: 18px;
   margin-top: 45px;
+  transition: all .2s linear;
+}
+.load{
+  opacity: .6;
 }
 .todo {
   width: 90%;
@@ -126,6 +135,7 @@
 .todo_checked {
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 .todo_delete {
   cursor: pointer;

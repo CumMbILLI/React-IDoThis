@@ -11,7 +11,7 @@ const UserExit = ({ user, setUser }) => {
   return (
     <div className='nav2'>
       <div className="user">{user}</div>
-      <img src={exit} className="exit" onClick={() => removeUser()} />
+      <img src={exit} className="exit" onClick={() => removeUser()} alt=''/>
     </div>
   );
 };

@@ -19,10 +19,9 @@
         margin-top: 20px;
         padding-bottom: 10px;
     }
-
-
-
-
+    .tabs{
+        justify-content: space-between;
+    }
     .popap_content{
         width: 370px;
         padding: 20px 30px;
